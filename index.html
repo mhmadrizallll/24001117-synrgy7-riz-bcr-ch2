@@ -20,6 +20,17 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
       rel="stylesheet"
     />
+    <style>
+      #our,
+      #testimonial,
+      #faq {
+        opacity: 0;
+        transform: translateY(
+          20px
+        ); /* Pilihan: Ganti dengan transform sesuai kebutuhan Anda */
+        transition: opacity 0.7s ease, transform 1s ease; /* Animasi transisi */
+      }
+    </style>
   </head>
   <body>
     <!-- Navbar -->
@@ -81,7 +92,7 @@
       >
         <div class="flex justify-between items-center">
           <h2 class="font-bold">BCR</h2>
-          <button class="relative" id="menu-button-x">
+          <button class="relative hover:cursor-pointer" id="menu-button-x">
             <div
               class="w-6 h-[2px] bg-black rotate-45 absolute top-0 right-0"
             ></div>
@@ -635,28 +646,28 @@
                 </a>
               </div>
               <div>
-                <a href="#">
+                <a href="https://instagram.com">
                   <i
                     class="fa-brands fa-instagram fa-2xl text-[#0d28a6] hover:cursor-pointer hover:text-[#000000]"
                   ></i>
                 </a>
               </div>
               <div>
-                <a href="#">
+                <a href="https://twitter.com">
                   <i
                     class="fa-brands fa-twitter fa-2xl text-[#0d28a6] hover:cursor-pointer hover:text-[#000000]"
                   ></i>
                 </a>
               </div>
               <div>
-                <a href="#">
+                <a href="https://linkedin.com">
                   <i
                     class="fa-solid fa-envelope fa-2xl text-[#0d28a6] hover:cursor-pointer hover:text-[#000000]"
                   ></i>
                 </a>
               </div>
               <div>
-                <a href="#">
+                <a href="https://twitch.com">
                   <i
                     class="fa-brands fa-twitch fa-2xl text-[#0d28a6] hover:cursor-pointer hover:text-[#000000]"
                   ></i>
@@ -683,15 +694,6 @@
       const button = document.getElementById("mobile-menu-button");
       const closeButton = document.getElementById("menu-button-x");
       const mainContent = document.getElementById("main-content");
-      // const x = document.getElementById("menu-button-x");
-
-      // TOMBOL X TUTUP MENU
-      // x.addEventListener("click", () => {
-      //   // menu.classList.toggle("hidden");
-      //   menu.classList.remove("right-0");
-      //   menu.classList.add("-right-96");
-      //   main_content.classList.remove("brightness-50");
-      // });
 
       // Fungsi untuk menutup menu
       function closeMenu() {
@@ -719,6 +721,49 @@
           closeMenu();
         }
       });
+
+      function handleIntersection(entries, observer) {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Tampilkan elemen jika masuk viewport
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          } else {
+            // Sembunyikan kembali elemen jika keluar viewport
+            entry.target.style.opacity = "0";
+            entry.target.style.transform = "translateY(20px)"; // Ubah sesuai dengan transform yang awal
+          }
+        });
+      }
+
+      const observer = new IntersectionObserver(handleIntersection, {
+        threshold: 0.5,
+      });
+
+      const ourSection = document.querySelector("#our");
+      // const whyUs = document.querySelector("#why-us");
+      const testimonial = document.querySelector("#testimonial");
+      const faq = document.querySelector("#faq");
+
+      if (ourSection) {
+        // Mulai mengamati elemen ourSection
+        observer.observe(ourSection);
+      }
+
+      // if (whyUs) {
+      //   // Mulai mengamati elemen whyUs
+      //   observer.observe(whyUs);
+      // }
+
+      if (testimonial) {
+        // Mulai mengamati elemen testimonial
+        observer.observe(testimonial);
+      }
+
+      if (faq) {
+        // Mulai mengamati elemen faq
+        observer.observe(faq);
+      }
     </script>
   </body>
 </html>
